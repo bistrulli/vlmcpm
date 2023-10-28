@@ -1,0 +1,140 @@
+<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+  <net id="spn">
+    <toolspecific tool="StochasticPetriNet" version="0.2" />
+    <page id="pg1">
+      <transition id="t3">
+        <name>
+          <text>A</text>
+        </name>
+        <toolspecific tool="StochasticPetriNet" version="0.2">
+          <property key="distributionType">IMMEDIATE</property>
+          <property key="weight">3.0</property>
+          <property key="invisible">False</property>
+          <property key="priority">1</property>
+        </toolspecific>
+      </transition>
+      <transition id="t14">
+        <name>
+          <text>B</text>
+        </name>
+        <toolspecific tool="StochasticPetriNet" version="0.2">
+          <property key="distributionType">IMMEDIATE</property>
+          <property key="weight">1.0</property>
+          <property key="invisible">False</property>
+          <property key="priority">1</property>
+        </toolspecific>
+      </transition>
+      <transition id="t11">
+        <name>
+          <text>C</text>
+        </name>
+        <toolspecific tool="StochasticPetriNet" version="0.2">
+          <property key="distributionType">IMMEDIATE</property>
+          <property key="weight">1.0</property>
+          <property key="invisible">False</property>
+          <property key="priority">1</property>
+        </toolspecific>
+      </transition>
+      <transition id="t15">
+        <name>
+          <text>D</text>
+        </name>
+        <toolspecific tool="StochasticPetriNet" version="0.2">
+          <property key="distributionType">IMMEDIATE</property>
+          <property key="weight">3.0</property>
+          <property key="invisible">False</property>
+          <property key="priority">1</property>
+        </toolspecific>
+      </transition>
+      <transition id="t6">
+        <name>
+          <text>E</text>
+        </name>
+        <toolspecific tool="StochasticPetriNet" version="0.2">
+          <property key="distributionType">IMMEDIATE</property>
+          <property key="weight">1.0</property>
+          <property key="invisible">False</property>
+          <property key="priority">1</property>
+        </toolspecific>
+      </transition>
+      <transition id="t7">
+        <name>
+          <text>tau</text>
+        </name>
+        <toolspecific tool="StochasticPetriNet" version="0.2">
+          <property key="distributionType">IMMEDIATE</property>
+          <property key="weight">2.0</property>
+          <property key="invisible">True</property>
+          <property key="priority">1</property>
+        </toolspecific>
+      </transition>
+      <transition id="t8">
+        <name>
+          <text>tau</text>
+        </name>
+        <toolspecific tool="StochasticPetriNet" version="0.2">
+          <property key="distributionType">IMMEDIATE</property>
+          <property key="weight">2.0</property>
+          <property key="invisible">True</property>
+          <property key="priority">1</property>
+        </toolspecific>
+      </transition>
+      <place id="p10">
+        <name>
+          <text></text>
+        </name>
+      </place>
+      <place id="p12">
+        <name>
+          <text></text>
+        </name>
+      </place>
+      <place id="p13">
+        <name>
+          <text></text>
+        </name>
+      </place>
+      <place id="p2">
+        <name>
+          <text></text>
+        </name>
+      </place>
+      <place id="p4">
+        <name>
+          <text></text>
+        </name>
+      </place>
+      <place id="p9">
+        <name>
+          <text></text>
+        </name>
+      </place>
+      <place id="pI">
+        <name>
+          <text>I</text>
+        </name>
+      </place>
+      <place id="pO">
+        <name>
+          <text>O</text>
+        </name>
+      </place>
+      <arc source="t3" target="p2" id="e1" />
+      <arc source="t14" target="p13" id="e2" />
+      <arc source="t11" target="p10" id="e3" />
+      <arc source="t15" target="pO" id="e4" />
+      <arc source="t6" target="p4" id="e5" />
+      <arc source="t7" target="p12" id="e6" />
+      <arc source="t7" target="p9" id="e7" />
+      <arc source="t8" target="p4" id="e8" />
+      <arc source="p10" target="t8" id="e9" />
+      <arc source="p12" target="t14" id="e10" />
+      <arc source="p13" target="t8" id="e11" />
+      <arc source="p2" target="t6" id="e12" />
+      <arc source="p2" target="t7" id="e13" />
+      <arc source="p4" target="t15" id="e14" />
+      <arc source="p9" target="t11" id="e15" />
+      <arc source="pI" target="t3" id="e16" />
+    </page>
+  </net>
+</pnml>
