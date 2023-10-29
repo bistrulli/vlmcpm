@@ -1,9 +1,19 @@
 import pm4py
 import xml.parsers.expat
+from pm4py.objects.petri_net.obj import PetriNet
 
 xml_tranition=None
 xml_tranitions=[]
 xml_weight=False
+
+class StochTrans:
+    weight=None
+
+    def __init__(self, weight):
+        self.weight=weight
+
+    def get_weight(self):
+        return self.weight
 
 def start_element(name, attrs):
     global xml_tranition,xml_weight
@@ -30,14 +40,8 @@ def getxmlTransition_byname(name):
         if(t["id"]==name):
             return t
 
-def get_stoch_map(pnmlfile):
-    #"/Users/emilio-imt/git/toothpaste/pnmlVSvlmc/test.pnml"
-    pn, im, fm=pm4py.read_pnml(pnmlfile)
-    im = pm4py.generate_marking(pn, {'pI': 1})
-
-    places = pn.places
+def get_stoch_map(pn,pnmlfile):
     transitions = pn.transitions
-    arcs = pn.arcs
 
     p = xml.parsers.expat.ParserCreate()
     p.StartElementHandler = start_element
@@ -46,17 +50,14 @@ def get_stoch_map(pnmlfile):
     p.Parse(open(pnmlfile, "r").read())
 
     smap={}
-
-    for place in places:
-        totw=0
-        for arc in place.out_arcs:
-            xml_t=getxmlTransition_byname(arc.target.name)
-            totw+=xml_t["weight"]
-        for arc in place.out_arcs:
-            xml_t=getxmlTransition_byname(arc.target.name)
-            smap[xml_t["id"]]=xml_t["weight"]/totw
+    for t in transitions:
+        xml_t=getxmlTransition_byname(t.name)
+        smap[t]=StochTrans(xml_t["weight"])
     return smap
 
+    #places = pn.places
+    #arcs = pn.arcs
+    # im = pm4py.generate_marking(pn, {'pI': 1})
     # simulated_log = simulator.apply(pn, im,variant=simulator.Variants.STOCHASTIC_PLAYOUT,
     #     parameters={simulator.Variants.STOCHASTIC_PLAYOUT.value.Parameters.NO_TRACES: 1,
     #                 simulator.Variants.STOCHASTIC_PLAYOUT.value.Parameters.STOCHASTIC_MAP: smap})

@@ -102,9 +102,11 @@ def learnSPN():
     (pn,pnfile) = mine(logfile,outfile)
     pm4py.view_petri_net(pn)
 
-def simSPN(pnfile, nrun=1,smap=None):
+def simSPN(pnfile, nrun=1):
     pn,im, fm = pm4py.read_pnml(pnfile)
     im = pm4py.generate_marking(pn, {'pI': 1})
+
+    smap=tpsmap.get_stoch_map(pn,str(pnfile))
 
     simulated_log = simulator.apply(pn, im,variant=simulator.Variants.STOCHASTIC_PLAYOUT,
         parameters={simulator.Variants.STOCHASTIC_PLAYOUT.value.Parameters.NO_TRACES: nrun,
@@ -143,10 +145,8 @@ if __name__ == "__main__":
     logs=[]
     nrun=int(10000)
     step=int(100)
-    smap=tpsmap.get_stoch_map(str(pnfile))
-    print(smap)
     for i in tqdm(range(0,nrun,step)):
-        logs.extend(simSPN(pnfile=str(pnfile),nrun=step,smap=smap))
+        logs.extend(simSPN(pnfile=str(pnfile),nrun=step))
 
     outlogFile=pathlib.Path("%s/%s_sim.dcdt"%(pnfile.parent,pnfile.name.split(".")[0]))
     saveSimLog(logs,outlogFile)
