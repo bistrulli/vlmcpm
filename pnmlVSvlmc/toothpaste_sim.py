@@ -168,7 +168,7 @@ if __name__ == "__main__":
     logqueue = manager.Queue()
 
     #run monitor process
-    p = multiprocessing.Process(target=printProress,args=(value,))
+    p = mp.Process(target=printProress,args=(value,))
     p.start()
 
     # create a default process pool
