@@ -129,10 +129,12 @@ def simSPN(pnfile=None,queue=None,nrun=1,lock=None,value=None):
     else:
         return simulated_log
 
-def printProress(value):
-    while(True):
-        print(value.value)
-        time.sleep(1)
+def printProress(value,total):
+    pbar = tqdm(total=total)
+    while(value.value<total-1):
+        pbar.update(value.value)
+        sleep(0.5)
+    pbar.close()
 
 def saveSimLog(log=None,outlogFile=None):
     print(outlogFile)
@@ -168,7 +170,7 @@ if __name__ == "__main__":
     logqueue = manager.Queue()
 
     #run monitor process
-    p = mp.Process(target=printProress,args=(value,))
+    p = mp.Process(target=printProress,args=(value,10,))
     p.start()
 
     # create a default process pool
