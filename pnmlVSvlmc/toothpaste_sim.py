@@ -130,11 +130,9 @@ def simSPN(pnfile=None,queue=None,nrun=1,lock=None,value=None):
         return simulated_log
 
 def printProress(value,total):
-    pbar = tqdm(total=total)
     while(value.value<total-1):
-        pbar.update(value.value)
+        primt("\r"+str(value.value))
         time.sleep(0.5)
-    pbar.close()
 
 def saveSimLog(log=None,outlogFile=None):
     print(outlogFile)
