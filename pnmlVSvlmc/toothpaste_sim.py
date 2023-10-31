@@ -156,7 +156,7 @@ if __name__ == "__main__":
     # create a default process pool
     pool = mp.Pool()
     st=time.time()
-    pool.starmap(simSPN, [(str(pnfile),logqueue,1) for i in range(3)])
+    pool.starmap(simSPN, [(str(pnfile),logqueue,1) for i in range(10000)])
     print(time.time()-st)
     pool.close()
     pool.join()
