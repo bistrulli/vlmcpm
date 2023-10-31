@@ -133,7 +133,7 @@ def printProress(value,total):
     pbar = tqdm(total=total)
     while(value.value<total-1):
         pbar.update(value.value)
-        sleep(0.5)
+        time.sleep(0.5)
     pbar.close()
 
 def saveSimLog(log=None,outlogFile=None):
