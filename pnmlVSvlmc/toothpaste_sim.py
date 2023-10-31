@@ -129,6 +129,11 @@ def simSPN(pnfile=None,queue=None,nrun=1,lock=None,value=None):
     else:
         return simulated_log
 
+def printProress(value):
+    while(True):
+        print(value.value)
+        time.sleep(1)
+
 def saveSimLog(log=None,outlogFile=None):
     print(outlogFile)
     outtraces=open(outlogFile,"w+")
@@ -161,6 +166,11 @@ if __name__ == "__main__":
     lock = manager.Lock()
     value = manager.Value(float, 0.0)
     logqueue = manager.Queue()
+
+    #run monitor process
+    p = multiprocessing.Process(target=printProress,args=(value,))
+    p.start()
+
     # create a default process pool
     pool = mp.Pool()
     st=time.time()
