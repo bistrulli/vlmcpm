@@ -169,14 +169,15 @@ if __name__ == "__main__":
     value = manager.Value(float, 0.0)
     logqueue = manager.Queue()
 
+    nrun=20
     #run monitor process
-    p = mp.Process(target=printProress,args=(value,10,))
+    p = mp.Process(target=printProress,args=(value,nrun,))
     p.start()
 
     # create a default process pool
-    pool = mp.Pool()
+    pool = mp.Pool(process=5)
     st=time.time()
-    pool.starmap(simSPN, [(str(pnfile),logqueue,1,lock,value) for i in range(10)])
+    pool.starmap(simSPN, [(str(pnfile),logqueue,1,lock,value) for i in range(nrun)])
     print(time.time()-st)
     pool.close()
     pool.join()
