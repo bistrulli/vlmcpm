@@ -131,7 +131,7 @@ def simSPN(pnfile=None,queue=None,nrun=1,lock=None,value=None):
 
 def printProress(value,total):
     while(value.value<total-1):
-        primt("\r"+str(value.value))
+        print("\r"+str(value.value))
         time.sleep(0.5)
 
 def saveSimLog(log=None,outlogFile=None):
