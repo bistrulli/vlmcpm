@@ -167,7 +167,7 @@ if __name__ == "__main__":
     value = manager.Value(float, 0.0)
     logqueue = manager.Queue()
 
-    nrun=1000
+    nrun=10000
     #run monitor process
     p = mp.Process(target=printProress,args=(value,nrun,))
     p.start()
