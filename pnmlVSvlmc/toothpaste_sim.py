@@ -131,7 +131,7 @@ def simSPN(pnfile=None,queue=None,nrun=1,lock=None,value=None):
 
 def printProress(value,total):
     while(value.value<total-1):
-        print("   "+str(value.value*100/total),end = "\r")
+        print("   "+str(value.value*100/total)+"%",end = "\r")
         time.sleep(1.0)
 
 def saveSimLog(log=None,outlogFile=None):
@@ -167,13 +167,13 @@ if __name__ == "__main__":
     value = manager.Value(float, 0.0)
     logqueue = manager.Queue()
 
-    nrun=20
+    nrun=1000
     #run monitor process
     p = mp.Process(target=printProress,args=(value,nrun,))
     p.start()
 
     # create a default process pool
-    pool = mp.Pool(5)
+    pool = mp.Pool()
     st=time.time()
     pool.starmap(simSPN, [(str(pnfile),logqueue,1,lock,value) for i in range(nrun)])
     print(time.time()-st)
