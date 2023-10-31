@@ -105,7 +105,7 @@ def learnSPN(noise="0"):
     (pn,pnfile) = mine(logfile,outfile,noise)
     #pm4py.view_petri_net(pn)
 
-def simSPN(pnfile=None,queue=None,nrun=1):
+def simSPN(pnfile=None,queue=None,nrun=1,lock=None,value=None):
     pn=None
     if(type(pnfile)==str):
         pn,im, fm = pm4py.read_pnml(pnfile)
@@ -118,6 +118,12 @@ def simSPN(pnfile=None,queue=None,nrun=1):
     simulated_log = simulator.apply(pn, im,variant=simulator.Variants.STOCHASTIC_PLAYOUT,
         parameters={simulator.Variants.STOCHASTIC_PLAYOUT.value.Parameters.NO_TRACES: nrun,
                     simulator.Variants.STOCHASTIC_PLAYOUT.value.Parameters.STOCHASTIC_MAP:smap  })
+
+    if(lock is not None):
+        lock.acquire()
+        value.value+=1
+        lock.release()
+
     if(queue is not None):
         queue.put(simulated_log[0])
     else:
@@ -152,11 +158,13 @@ if __name__ == "__main__":
 
     mp.set_start_method('spawn')
     manager = mp.Manager()
+    lock = manager.Lock()
+    value = manager.Value(float, 0.0)
     logqueue = manager.Queue()
     # create a default process pool
     pool = mp.Pool()
     st=time.time()
-    pool.starmap(simSPN, [(str(pnfile),logqueue,1) for i in range(10000)])
+    pool.starmap(simSPN, [(str(pnfile),logqueue,1,lock,value) for i in range(10)])
     print(time.time()-st)
     pool.close()
     pool.join()
