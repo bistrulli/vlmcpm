@@ -25,7 +25,7 @@ def readDCDR(filepath):
 	return data
 
 if __name__ == '__main__':
-	dataPM=readDCDR(pathlib.Path("petri_par_sim.dcdt"))
+	dataPM=readDCDR(pathlib.Path("petri_0_sim.dcdt"))
 	dataSet=readDCDR(pathlib.Path("/Users/emilio-imt/eclipse-workspace/SSSA_IMT/data/converted/process.dcdt"))
 	dataVLMC=readDCDR(pathlib.Path("/Users/emilio-imt/eclipse-workspace/SSSA_IMT/out.mat"))
 
