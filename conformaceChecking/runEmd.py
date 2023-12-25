@@ -113,7 +113,7 @@ for num_groups in group_counts:
 
     emd_df,average_emd , emd_estimation_time_group= main(language_model, full_log1, num_groups)
     print('Emd evaluated')
-    csv_file_path = f'EMD-GROUP/EMD_SOLO_nGroup{num_groups}.csv'
+    csv_file_path = f'{tracking_df_directory}/EMD_SOLO_nGroup{num_groups}.csv'
     emd_df.to_csv(csv_file_path, index=False)
     print(f'EMD results for num_groups= {num_groups} saved to {csv_file_path}')
 
