@@ -1,6 +1,3 @@
-# %pip install pm4py
-# %pip install pyemd
-
 import os
 import time
 import pickle
